@@ -1,0 +1,79 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Organizer</title>
+    <script 
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">//подключаем либу ajax ( we not include ajax and include jquery !!!)
+                                                                              // Ajax it's asynchronous Javascript and XML
+                                                                              // well then ajax it's technolegy for asynchronous requests
+                                                                              // to remote web server or sew service but not library  
+    </script>
+    <script> 
+        function getDta (){ //функция, которая вызывается при загрузке страницы (this function need for send request on  remote server)
+            $.ajax({       
+                url:"http://localhost:55349/Organizer/Notes",   // where
+                success: function(requestResult){              // how handle    
+                    var jsonData = JSON.parse(requestResult);               
+                    requestHandler(jsonData);
+                }
+                //, data: {x: 100500 } // what
+
+            });
+        }
+
+        function requestHandler (data){   // this function handle received data (on our action her draw data on page)
+        $(".noute_item").remove();
+            $.each(data, function (i)
+            {
+                // incoming object specification
+                //Id
+                //Title
+                //Comtent
+                //Data
+ 
+               $("#noteBox").append("<div class=\"noute_item\">Title: "+data[i].Title +
+                                    ", Content: " + data[i].Content + 
+                                    ", Date: " + data[i].DateOfCreation +
+                                     "<br></div>" )
+               
+            });
+        }
+        function createNote (){
+
+            var title, note;
+            title = $("#editBox_title").val();
+            note = $("#editBox_note").val();
+            $.ajax({
+                url:"http://localhost:55349/Organizer/CreateNote",
+                data:{
+                    title: title,
+                    content: note}
+                    });
+
+
+                getDta();         // update view
+        }
+          
+                                      // call function getData for update data on our page
+        
+    </script>
+</head>
+<body onload="getDta()">
+    <input type="text" name="Title" id="editBox_title"><br>
+    <input type="text" name="Note" id="editBox_note"><br>
+    <input type="button" value="Submit" onclick="createNote()">
+  
+    <div id = "noteBox"  > 
+        <!-- We draw this our items wich, as write lower
+         "<div class="noute_item">Title: TEST_TITLE, Content: TESTCONTENT, Date: 28:01:2017 <br></div>"
+          -->
+    </div>
+</body>
+</html>

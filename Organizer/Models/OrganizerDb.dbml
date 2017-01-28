@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="OrganizerDb" Class="OrganizerDbDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=JULIA-PC;Initial Catalog=OrganizerDb;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="OrganizerDbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Notes" Member="Notes">
+    <Type Name="Note">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Content" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="DateOfCreation" Type="System.DateTime" DbType="SmallDateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Function Name="dbo.CreateNote" Method="CreateNote">
+    <Parameter Name="title" Type="System.String" DbType="NChar(100)" />
+    <Parameter Name="content" Type="System.String" DbType="Text" />
+    <Parameter Name="dateOfCreation" Type="System.DateTime" DbType="DateTime" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>
